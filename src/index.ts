@@ -1,6 +1,5 @@
 const WORD = 2 ** 32;
 const DOUBLE = 2 ** 53;
-const HIGH = 2 ** 27;
 
 export type SeedPart = string | number;
 export type RngState = readonly [number, number, number, number];
