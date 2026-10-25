@@ -4,6 +4,8 @@ Seeded random numbers for roblox-ts. Every client and every server draws the sam
 
 Roblox's `Random` doesn't promise that. Its algorithm and `Random:Shuffle` belong to the engine and can change between versions, which matters as soon as a server and its clients must agree on a draw. This package runs [xoshiro128\*\*](https://prng.di.unimi.it/) in plain Luau instead, and checks it against the algorithm's reference output.
 
+Read the documentation at <https://website.trio-forge.workers.dev/docs/random/>.
+
 ## Install
 
 ```sh
