@@ -1,4 +1,4 @@
-import { describe, expect, test } from "vitest";
+import { describe, expect, test } from "vite-plus/test";
 import { Rng } from "./luau";
 
 const average = (values: number[]) => values.reduce((sum, value) => sum + value, 0) / values.length;

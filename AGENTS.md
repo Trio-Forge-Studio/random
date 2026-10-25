@@ -10,9 +10,9 @@ Run every check before you call a change done:
 pnpm run check
 ```
 
-It runs oxfmt, oxlint, tsc over the tests, and vitest. Install the Node tools with `pnpm install` and Lune with `rokit install`. Fix the cause of a failure rather than silencing it.
+It runs tsc over the tests and `vp test`. Fix the cause of a failure rather than silencing it.
 
-The package is TypeScript and so are its tests, but Node can't run the Luau that rbxtsc emits. vitest builds `out/` once, and `test/luau.ts` mirrors `Rng`: each call sends the state and the method to `test/bridge.luau`, which runs it in Lune against the compiled package and returns the result and the new state. Use `many(times, method, ...args)` for statistical draws, since each call starts Lune. The bridge stays the only Luau in the repository.
+The package is TypeScript and so are its tests, but Node can't run the Luau that rbxtsc emits. `vp test` builds `out/` once, and `test/luau.ts` mirrors `Rng`: each call sends the state and the method to `test/bridge.luau`, which runs it in Lune against the compiled package and returns the result and the new state. Use `many(times, method, ...args)` for statistical draws, since each call starts Lune. The bridge stays the only Luau in the repository.
 
 `test/readme.test.ts` compiles every TypeScript block in the README with rbxtsc and runs it in Lune. A `// → text` comment is the next line an example prints, and blocks that share `group=<name>` in their info string build on each other.
 

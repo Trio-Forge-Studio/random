@@ -32,21 +32,16 @@
 	},
 	"scripts": {
 		"build": "rbxtsc --type package",
-		"test": "vitest run",
-		"lint": "oxlint",
-		"fmt": "oxfmt src test vitest.config.ts",
-		"typecheck": "tsc -p test",
-		"check": "oxfmt --check src test vitest.config.ts && oxlint && tsc -p test && vitest run",
+		"test": "vp test",
+		"check": "tsc -p test && vp test",
 		"prepack": "rbxtsc --type package"
 	},
 	"devDependencies": {
-		"@rbxts/compiler-types": "3.0.0-types.0",
-		"@rbxts/types": "^1.0.958",
+		"@rbxts/compiler-types": "catalog:rbxts",
+		"@rbxts/types": "catalog:rbxts",
 		"@types/node": "^24.19.2",
-		"oxfmt": "^0.74.0",
-		"oxlint": "^1.89.0",
-		"roblox-ts": "^3.0.0",
-		"typescript": "5.5.3",
-		"vitest": "^5.0.5"
+		"roblox-ts": "catalog:rbxts",
+		"typescript": "catalog:rbxts",
+		"vite-plus": "catalog:"
 	}
 }

@@ -1,7 +1,7 @@
 import { spawnSync } from "node:child_process";
 import { cpSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
-import { beforeAll, expect, test } from "vitest";
+import { beforeAll, expect, test } from "vite-plus/test";
 import { runExample } from "./luau";
 
 // Each TypeScript block in the README compiles with rbxtsc and runs in Lune. A `// → text` comment is the next line it
