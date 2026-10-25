@@ -27,14 +27,3 @@ The package is TypeScript and so are its tests, but Node can't run the Luau that
 
 - Comment only what the code can't say: a non-obvious reason, a workaround, a trap.
 - Commit messages are Conventional Commits with a scope: `feat(rng): …`, `fix(seed): …`, `test: …`, `docs: …`.
-
-## Releasing
-
-Releases publish from CI. Bump `version` in `package.json` in a PR and merge it. Then tag that commit on `main` and push the tag:
-
-```sh
-git tag random-v0.2.0 origin/main
-git push origin refs/tags/random-v0.2.0
-```
-
-The repository's `.github/workflows/release.yml` refuses a tag that isn't on `main` or doesn't match the version, runs `pnpm run check`, and publishes with `npm publish` through npm trusted publishing, with provenance. Don't publish from a machine.

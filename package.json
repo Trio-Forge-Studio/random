@@ -25,6 +25,7 @@
 		"out",
 		"!**/*.tsbuildinfo",
 		"README.md",
+		"CHANGELOG.md",
 		"LICENSE"
 	],
 	"publishConfig": {
