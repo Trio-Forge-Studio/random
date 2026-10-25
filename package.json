@@ -11,6 +11,7 @@
 		"seed",
 		"xoshiro"
 	],
+	"homepage": "https://website.trio-forge.workers.dev/random/",
 	"bugs": "https://github.com/Trio-Forge-Studio/packages/issues",
 	"repository": {
 		"type": "git",
@@ -35,11 +36,13 @@
 		"build": "rbxtsc --type package",
 		"test": "vp test",
 		"check": "tsc -p test && vp test",
-		"prepack": "rbxtsc --type package"
+		"prepack": "rbxtsc --type package",
+		"examples": "check-examples --run"
 	},
 	"devDependencies": {
 		"@rbxts/compiler-types": "catalog:rbxts",
 		"@rbxts/types": "catalog:rbxts",
+		"@trioforge/tooling": "workspace:*",
 		"@types/node": "^24.19.2",
 		"roblox-ts": "catalog:rbxts",
 		"typescript": "catalog:rbxts",
