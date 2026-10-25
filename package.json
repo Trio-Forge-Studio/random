@@ -11,10 +11,11 @@
 		"seed",
 		"xoshiro"
 	],
-	"bugs": "https://github.com/Trio-Forge-Studio/random/issues",
+	"bugs": "https://github.com/Trio-Forge-Studio/packages/issues",
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/Trio-Forge-Studio/random.git"
+		"url": "git+https://github.com/Trio-Forge-Studio/packages.git",
+		"directory": "packages/random"
 	},
 	"license": "MIT",
 	"type": "module",
@@ -26,7 +27,6 @@
 		"README.md",
 		"LICENSE"
 	],
-	"packageManager": "pnpm@12.15.0",
 	"publishConfig": {
 		"access": "public"
 	},

@@ -33,8 +33,8 @@ The package is TypeScript and so are its tests, but Node can't run the Luau that
 Releases publish from CI. Bump `version` in `package.json` in a PR and merge it. Then tag that commit on `main` and push the tag:
 
 ```sh
-git tag v0.2.0 origin/main
-git push origin refs/tags/v0.2.0
+git tag random-v0.2.0 origin/main
+git push origin refs/tags/random-v0.2.0
 ```
 
-`.github/workflows/release.yml` refuses a tag that isn't on `main` or doesn't match the version, runs `pnpm run check`, and publishes with `npm publish` through npm trusted publishing, with provenance. Don't publish from a machine.
+The repository's `.github/workflows/release.yml` refuses a tag that isn't on `main` or doesn't match the version, runs `pnpm run check`, and publishes with `npm publish` through npm trusted publishing, with provenance. Don't publish from a machine.
