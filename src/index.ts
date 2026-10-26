@@ -5,12 +5,14 @@ export type SeedPart = string | number;
 export type RngState = readonly [number, number, number, number];
 
 // Luau has no 32-bit multiply, and a full product of two words overflows a double's 53 bits, so it splits one side.
+/** @native */
 function imul(a: number, b: number): number {
 	const low = a * (b % 65536);
 	const high = ((a * math.floor(b / 65536)) % WORD) * 65536;
 	return (low + high) % WORD;
 }
 
+/** @native */
 function fmix(h: number): number {
 	h = imul(bit32.bxor(h, bit32.rshift(h, 16)), 0x85ebca6b);
 	h = imul(bit32.bxor(h, bit32.rshift(h, 13)), 0xc2b2ae35);
@@ -40,12 +42,15 @@ function words(parts: readonly SeedPart[]): number[] {
 
 const LANES = [0x6a09e667, 0xbb67ae85, 0x3c6ef372, 0xa54ff53a];
 
+/** @native */
 function hashState(input: readonly number[]): [number, number, number, number] {
-	const state = LANES.map((lane) => {
-		let h = lane;
-		for (const word of input) h = fmix((imul(bit32.bxor(h, word), 0x9e3779b1) + lane) % WORD);
-		return fmix(h);
-	});
+	const state = LANES.map(
+		/** @native */ (lane) => {
+			let h = lane;
+			for (const word of input) h = fmix((imul(bit32.bxor(h, word), 0x9e3779b1) + lane) % WORD);
+			return fmix(h);
+		},
+	);
 	if (state.every((word) => word === 0)) state[0] = 1;
 	return [state[0], state[1], state[2], state[3]];
 }
@@ -90,6 +95,7 @@ export class Rng {
 		return new Rng(this.uint32(), this.uint32(), this.uint32(), this.uint32());
 	}
 
+	/** @native */
 	uint32(): number {
 		const result = (bit32.lrotate((this.b * 5) % WORD, 7) * 9) % WORD;
 		const t = bit32.lshift(this.b, 9);
@@ -104,6 +110,7 @@ export class Rng {
 
 	float(): number;
 	float(min: number, max: number): number;
+	/** @native */
 	float(min?: number, max?: number): number {
 		const unit = (bit32.rshift(this.uint32(), 5) * 2 ** 26 + bit32.rshift(this.uint32(), 6)) / DOUBLE;
 		if (min === undefined || max === undefined) return unit;
@@ -111,6 +118,7 @@ export class Rng {
 		return min + unit * (max - min);
 	}
 
+	/** @native */
 	int(min: number, max: number): number {
 		if (min % 1 !== 0 || max % 1 !== 0) error(`int needs integer bounds, got ${min} and ${max}`, 2);
 		const span = max - min + 1;
@@ -122,10 +130,12 @@ export class Rng {
 		return min + (value % span);
 	}
 
+	/** @native */
 	chance(probability: number): boolean {
 		return this.float() < probability;
 	}
 
+	/** @native */
 	normal(mean = 0, deviation = 1): number {
 		const radius = math.sqrt(-2 * math.log(1 - this.float()));
 		return mean + deviation * radius * math.cos(2 * math.pi * this.float());
@@ -136,6 +146,7 @@ export class Rng {
 		return items[this.int(0, items.size() - 1)];
 	}
 
+	/** @native */
 	weightedIndex(weights: readonly number[]): number {
 		let total = 0;
 		for (const weight of weights) {
@@ -160,6 +171,7 @@ export class Rng {
 		return items[this.weightedIndex(items.map(weight))];
 	}
 
+	/** @native */
 	shuffle<T extends defined>(items: readonly T[]): T[] {
 		const result = [...items];
 		for (let index = result.size() - 1; index > 0; index--) {
@@ -169,6 +181,7 @@ export class Rng {
 		return result;
 	}
 
+	/** @native */
 	sample<T extends defined>(items: readonly T[], count: number): T[] {
 		if (count % 1 !== 0 || count < 0 || count > items.size())
 			error(`sample needs a count from 0 to ${items.size()}, got ${count}`, 2);
