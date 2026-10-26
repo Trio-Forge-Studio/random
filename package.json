@@ -32,10 +32,10 @@
 		"access": "public"
 	},
 	"scripts": {
-		"build": "rbxtsc --type package",
+		"build": "rbxtsc-native --type package",
 		"test": "vp test",
 		"check": "vp check && tsc -p test && vp test",
-		"prepack": "rbxtsc --type package",
+		"prepack": "rbxtsc-native --type package",
 		"examples": "node tooling/check-examples.mjs --run",
 		"fmt": "vp fmt",
 		"prepare": "vp config",
@@ -46,6 +46,7 @@
 		"@changesets/cli": "3.0.3",
 		"@rbxts/compiler-types": "3.0.0-types.0",
 		"@rbxts/types": "1.0.959",
+		"@trioforge/rbxts-native": "0.1.0",
 		"@types/node": "24.19.2",
 		"roblox-ts": "3.0.0",
 		"typescript": "5.5.3",

@@ -1,6 +1,7 @@
 import { spawnSync } from "node:child_process";
 import { cpSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
+import { cliPath } from "@trioforge/rbxts-native";
 import { beforeAll, expect, test } from "vite-plus/test";
 import { runExample } from "./luau";
 
@@ -51,8 +52,7 @@ beforeAll(() => {
 			include: ["examples", "src"],
 		}),
 	);
-	const rbxtsc = join("node_modules", "roblox-ts", "out", "CLI", "cli.js");
-	const compiled = spawnSync(process.execPath, [rbxtsc, "--type", "package", "-p", project], { encoding: "utf8" });
+	const compiled = spawnSync(process.execPath, [cliPath, "--type", "package", "-p", project], { encoding: "utf8" });
 	if (compiled.status !== 0)
 		throw new Error(`The README examples don't compile:\n${compiled.stdout}${compiled.stderr}`);
 });
