@@ -1,5 +1,11 @@
 # @trioforge/random
 
+## 0.1.2
+
+### Patch Changes
+
+- [`6964b61`](https://github.com/Trio-Forge-Studio/random/commit/6964b61521e39c60f326defb3be497cac2a6e6a4) Thanks [@Hezaerd](https://github.com/Hezaerd)! - The source moved to its own repository, [Trio-Forge-Studio/random](https://github.com/Trio-Forge-Studio/random), so the package's repository and issue links point there. Its homepage is now its docs page at <https://website.trio-forge.workers.dev/docs/random/>. The code is the same as the previous version.
+
 ## 0.1.1
 
 ### Patch Changes
