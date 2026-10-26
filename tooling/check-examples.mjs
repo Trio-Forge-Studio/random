@@ -7,12 +7,13 @@
 //
 //   check-examples [--run] [--types <file>] <markdown files...>
 
+import { cliPath } from "@trioforge/rbxts-native";
+
 import { execFileSync, spawnSync } from "node:child_process";
 import { cpSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { basename, join, relative, resolve } from "node:path";
 import { parseArgs, stripVTControlCharacters } from "node:util";
 
-import { cliPath } from "@trioforge/rbxts-native";
 const { values: options, positionals: files } = parseArgs({
 	options: { run: { type: "boolean", default: false }, types: { type: "string" } },
 	allowPositionals: true,
