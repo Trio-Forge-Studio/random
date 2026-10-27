@@ -6,7 +6,7 @@ Seeded random numbers for roblox-ts, published as `@trioforge/random`. The gener
 
 Run `pnpm install` and `rokit install`. `rokit.toml` pins Lune and StyLua. Vite+ (`vp`) formats, lints and tests the repository from `vite.config.ts`, and `pnpm run fmt` fixes formatting. A pre-commit hook runs `vp check --fix` on staged files.
 
-`tsconfig.json` extends `tsconfig.rbxts.json`, the roblox-ts options every Trio Forge library shares. `tooling/lune/runtime.luau` is the roblox-ts runtime, which `.lune/example.luau` requires as `@tooling/runtime` through `.luaurc`. `tooling/check-examples.mjs` checks the examples. Each Trio Forge library keeps its own copy of `tooling/`, so a fix there belongs in the other libraries too.
+`tsconfig.json` extends `tsconfig.rbxts.json`, the roblox-ts options every Trio Forge library shares. The example checker, staged release command, and Lune runtime and test runner come from `@trioforge/tooling`. Lune code requires the runtime as `@tooling/runtime` through `.luaurc`. CI and release use the shared workflows in [Trio-Forge-Studio/tooling](https://github.com/Trio-Forge-Studio/tooling). Fix shared tooling in that repository.
 
 ## Checks
 
@@ -16,7 +16,7 @@ Run every check before you call a change done:
 pnpm run check
 ```
 
-It runs `vp check`, tsc over the tests and `vp test`. Fix the cause of a failure rather than silencing it.
+It runs `vp check`, tsc over the tests, `vp test`, and the README examples through `@trioforge/tooling`. Fix the cause of a failure rather than silencing it.
 
 The package is TypeScript and so are its tests, but Node can't run the Luau that rbxtsc emits. `vp test` builds `out/` once, and `test/luau.ts` mirrors `Rng`: each call sends the state and the method to `test/bridge.luau`, which runs it in Lune against the compiled package and returns the result and the new state. Use `many(times, method, ...args)` for statistical draws, since each call starts Lune. The bridge stays the only Luau in the tests.
 
