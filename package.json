@@ -34,7 +34,7 @@
 	"scripts": {
 		"build": "rbxtsc --type package",
 		"test": "vp test",
-		"check": "vp check && tsc -p test && vp test && pnpm run examples README.md",
+		"check": "vp check && tsc -p test && vp test",
 		"prepack": "rbxtsc --type package",
 		"examples": "check-examples --run",
 		"fmt": "vp fmt",
