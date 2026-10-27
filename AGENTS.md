@@ -6,7 +6,7 @@ Seeded random numbers for roblox-ts, published as `@trioforge/random`. The gener
 
 Run `pnpm install` and `rokit install`. `rokit.toml` pins Lune and StyLua. Vite+ (`vp`) formats, lints and tests the repository from `vite.config.ts`, and `pnpm run fmt` fixes formatting. A pre-commit hook runs `vp check --fix` on staged files.
 
-`tsconfig.json` extends `tsconfig.rbxts.json`, the roblox-ts options every Trio Forge library shares. `tooling/lune/runtime.luau` is the roblox-ts runtime, which `.lune/example.luau` requires as `@tooling/runtime` through `.luaurc`. `tooling/check-examples.mjs` checks the examples. Each Trio Forge library keeps its own copy of `tooling/`, so a fix there belongs in the other libraries too.
+`tsconfig.json` extends `tsconfig.rbxts.json`, the roblox-ts options every Trio Forge library shares. The example checker, staged release command, and Lune runtime and test runner come from `@trioforge/tooling`. Lune code requires the runtime as `@tooling/runtime` through `.luaurc`. CI and release use the shared workflows in [Trio-Forge-Studio/tooling](https://github.com/Trio-Forge-Studio/tooling). Fix shared tooling in that repository.
 
 ## Checks
 
