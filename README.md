@@ -1,10 +1,10 @@
 # @trioforge/random
 
-Seeded random numbers for roblox-ts. Every client and every server draws the same sequence from the same seed, today and after any engine update.
+Seeded random numbers for roblox-ts. The same seed gives the same sequence on every server and every client, today and after any engine update.
 
-Roblox's `Random` doesn't promise that. Its algorithm and `Random:Shuffle` belong to the engine and can change between versions, which matters as soon as a server and its clients must agree on a draw. This package runs [xoshiro128\*\*](https://prng.di.unimi.it/) in plain Luau instead, and checks it against the algorithm's reference output.
+Roblox's `Random` makes no such promise. Roblox can change its algorithm and `Random:Shuffle` in any engine version, which is a problem as soon as a server and its clients need to agree on a draw. This package runs [xoshiro128\*\*](https://prng.di.unimi.it/) in plain Luau instead and tests it against the algorithm's reference output.
 
-Read the documentation at <https://website.trio-forge.workers.dev/docs/random/>.
+The documentation is at <https://website.trio-forge.workers.dev/docs/random/>.
 
 ## Install
 
@@ -12,7 +12,7 @@ Read the documentation at <https://website.trio-forge.workers.dev/docs/random/>.
 pnpm add @trioforge/random
 ```
 
-roblox-ts only looks for packages in the scopes your project lists, so add the `@trioforge` scope in two places.
+roblox-ts only finds packages in the scopes your project lists, so you need to add the `@trioforge` scope in two places.
 
 1. In `tsconfig.json`, add it to `typeRoots`:
 
@@ -47,7 +47,7 @@ print(rng.shuffle([1, 2, 3, 4, 5]).join(" "));
 
 ## Seeds
 
-`new Rng(...seed)` takes any mix of strings and integers and hashes them into a 128-bit state. The same parts in the same order always give the same stream. Different parts give unrelated streams, so a seed can name what it's for:
+`new Rng(...seed)` takes any mix of strings and integers and hashes them into a 128-bit state. The same parts in the same order always give the same stream. Different parts give unrelated streams, so you can name a seed after what it's for:
 
 ```ts
 import { Rng } from "@trioforge/random";
@@ -57,9 +57,9 @@ const furniture = new Rng("furniture", houseSeed);
 const weather = new Rng("weather", houseSeed);
 ```
 
-The two streams above don't move together, and drawing from one never changes the other. Seed numbers must be integers within ±2^53. `new Rng()` with no parts seeds itself from the clock and `math.random`, for draws nobody needs to repeat.
+The two streams above are unrelated, and drawing from one never changes the other. Seed numbers must be integers within ±2^53. `new Rng()` with no parts seeds itself from the clock and `math.random`. Use it for draws nobody needs to repeat.
 
-`fork()` takes four draws from a stream and seeds a new one from them. Hand a fork to a system that draws an unknown number of times, and the parent's sequence after it stays the same whatever the fork does.
+`fork()` takes four draws from a stream and seeds a new one from them. Give a fork to a system that draws an unknown number of times, and the parent's sequence after the fork stays the same however many times the fork draws.
 
 `state()` returns the four 32-bit words of the stream's position. `Rng.fromState(state)` resumes from them, so a server can save a stream or send it to clients. `clone()` copies a stream at its current position.
 
@@ -90,4 +90,4 @@ print(rarities[rng.weightedIndex([80, 18, 2])]);
 // → common
 ```
 
-Each method's sequence for a given state is part of the package's contract. A change that would draw differently from the same seed is a breaking change.
+Each method's sequence for a given state is part of the package's contract, so a change that would draw differently from the same seed is a breaking change.
